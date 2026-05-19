@@ -32,4 +32,16 @@ def merge_files(file1, file2, output):
         # hola
         # mundo
     """
-    pass  # Reemplazar con tu implementación
+
+    with open(file1,"r") as file1:
+        cont1=file1.read()
+        #contenido=contenido.join()
+
+    with open(file2, "r")as file2:
+        cont2=file2.read()
+
+    contenido=cont1+cont2
+    with open(output, "w")as res:
+        res.write(contenido)
+    print(contenido)
+#merge_files("ej09_a.txt", "ej09_b.txt", "stock.txt")

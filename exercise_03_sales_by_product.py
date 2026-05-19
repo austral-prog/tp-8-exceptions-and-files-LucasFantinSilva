@@ -31,7 +31,27 @@ def read_sales(filename):
             "producto2": [200.0],
         }
     """
-    pass  # Reemplazar con tu implementación
+    import os
+    if not os.path.exists(filename):
+        raise FileNotFoundError("Archivo no encontrado")
+    lst=[]
+    diccio={}
+    with (open(filename, "r") as file):
+     line=file.read()
+     line=line.strip()
+     line=line.split(";")
+     for conj in line:
+         if conj!= "":
+           a=conj.split(":")
+           k, v=a[0], float(a[1])
+           if not k in diccio.keys():
+               diccio[k] = [v]
+           else:
+               diccio[k].append(v)
+
+
+     return diccio
+
 
 
 def process_sales(data):
@@ -53,4 +73,13 @@ def process_sales(data):
         process_sales({"producto1": [100.0, 150.0]})
         # imprime: "producto1: ventas totales $250.00, promedio $125.00"
     """
-    pass  # Reemplazar con tu implementación
+    for k, l in data.items():
+        suma=0
+        contador=0
+        for n in l:
+            suma+=n
+            contador+=1
+            promedio=suma/contador
+        print(f"{k}: ventas totales ${suma:.2f}, promedio ${promedio:.2f}")
+
+

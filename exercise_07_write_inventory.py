@@ -28,4 +28,31 @@ def write_inventory(filename, inventory):
         # iron:7
         # wood:10
     """
-    pass  # Reemplazar con tu implementación
+
+    ordenlist=[]
+    contador=0
+    for k,v in inventory.items():
+        line=f"{k}:{v}"
+        if ordenlist== []:
+            ordenlist.append(line)
+        else:
+            hecho=False
+            for i in range(len(ordenlist)):
+                if line<ordenlist[i]:
+                    ordenlist.insert(i,line)
+                    hecho=True
+            if hecho==False:
+                 ordenlist.append(line)
+    with open(filename, "w") as file:
+        for line in ordenlist:
+            file.write(f"{line}\n")
+
+
+    return None
+
+
+
+
+
+
+

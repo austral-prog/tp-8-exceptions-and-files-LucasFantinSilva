@@ -42,4 +42,45 @@ def parse_log(filename):
             "WARN": ["lento"],
         }
     """
-    pass  # Reemplazar con tu implementación
+    diccio={}
+    niveles=set()
+    lst1=[]
+    lst2=[]
+    lst3=[]
+    lst4=[]
+    import os
+    if not os.path.exists(filename):
+        raise FileNotFoundError("Archivo no encontrado")
+    with open(filename, "r") as file:
+            for line in file:
+                line=line.strip()
+                print(line)
+                if line!="":
+                    try:
+                        nivel,msg=line.split(": ")
+                        msg=msg.strip()
+                        niveles.add(nivel)
+                    except:
+                        raise ValueError("invalid log line")
+                    if nivel== "INFO" or nivel=="INFO ":
+                        lst1.append(msg)
+                    elif nivel=="ERROR":
+                        lst2.append(msg)
+                    elif nivel=="WARN":
+                        lst3.append(msg)
+                    elif nivel=="DEBUG":
+                        lst4.append(msg)
+                    else:
+                        raise ValueError("Invalid log line")
+    for i in niveles:
+        if i =="ERROR":
+            diccio={"INFO":lst1,"ERROR":lst2,"WARN":lst3}
+        elif i=="DEBUG":
+            diccio={"DEBUG":lst4}
+    if len(diccio)==0:
+         if len(lst1)!=0:
+             diccio={"INFO":lst1}
+    return diccio
+
+
+

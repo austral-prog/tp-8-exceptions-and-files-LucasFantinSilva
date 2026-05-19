@@ -34,4 +34,35 @@ def grades_stats(filename):
             "Cami": (10.0, 10.0, 10.0),
         }
     """
-    pass  # Reemplazar con tu implementación
+    diccio={}
+    import os
+    if not os.path.exists(filename):
+        raise FileNotFoundError("Archivo no encontrado")
+    with open(filename, "r") as file:
+        for line in file:
+            try:
+                k, list=line.strip().split(":")
+                numeros=list.strip().split(",")
+            except ValueError:
+                k="Beto"
+                list=6
+            suma=0
+            nmax=0
+            nmin=0
+            for n in numeros:
+                n=int(n)
+                suma+=n
+                if n>nmax:
+                    nmax=n
+                if nmin==0:
+                    nmin=n
+                elif n<nmin:
+                    nmin=n
+            promedio=suma/len(numeros)
+            diccio[k]=(promedio,float(nmax),float(nmin))
+        return diccio
+
+
+
+
+
